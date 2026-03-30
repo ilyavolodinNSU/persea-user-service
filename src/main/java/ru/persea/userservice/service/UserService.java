@@ -1,0 +1,25 @@
+package ru.persea.userservice.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import ru.persea.userservice.dto.FactorDto;
+import ru.persea.userservice.dto.ProductDto;
+
+public interface UserService {
+    public List<ProductDto> getViewedProducts(UUID userId);
+
+    public List<ProductDto> getFavoriteProducts(UUID userId); 
+
+    public void addViewedProduct(UUID userId, Long productId);
+
+    public void addFavoriteProduct(UUID userId, Long productId);
+
+    public void deleteFavoriteProduct(UUID userId, Long productId);
+
+    public List<FactorDto> getAllergens(UUID userId);
+
+    public void addAllergen(UUID userId, Long factorId);
+
+    public void deleteAllergen(UUID userId, Long productId);
+}
