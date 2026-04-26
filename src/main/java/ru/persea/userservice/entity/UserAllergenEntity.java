@@ -28,5 +28,5 @@ public class UserAllergenEntity {
     private UUID keycloakId;
 
     @Column(name = "factor_id", nullable = false)
-    private Long factor_id;
+    private Long factorId;
 }

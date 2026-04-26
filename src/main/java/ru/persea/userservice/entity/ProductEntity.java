@@ -1,5 +1,7 @@
 package ru.persea.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,15 +21,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProductEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "raiting")
-    private Integer raiting;
+    @Column(name = "rating")
+    private Integer rating;
 
+    @JsonProperty("image_uri")
     @Column(name = "image_uri")
     private String imageUri;
 }

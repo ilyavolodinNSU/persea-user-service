@@ -1,4 +1,4 @@
-package ru.persea.userservice.controller;
+package ru.persea.userservice.config;
 
 import java.util.ArrayList;
 import java.util.Collection;

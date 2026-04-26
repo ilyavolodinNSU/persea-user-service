@@ -27,8 +27,9 @@ public interface UserActionsRepository extends JpaRepository<UserActionEntity, L
     @Query("""
         delete
         from UserActionEntity ua 
-        join ua.type t
-        where ua.keycloakId = :userId and ua.productId = :productId and t.name = :typeName
+        where ua.keycloakId = :userId 
+            and ua.productId = :productId 
+            and ua.type.name = :typeName
     """)
     public List<UserActionEntity> deleteByUserIdAndProductId(
         @Param("userId") UUID userId,
