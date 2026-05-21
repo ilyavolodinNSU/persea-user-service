@@ -1,14 +1,17 @@
 package ru.persea.userservice.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import ru.persea.userservice.dto.FactorDto;
 import ru.persea.userservice.dto.ProductDto;
+import ru.persea.userservice.dto.UserActionEvent;
 import ru.persea.userservice.entity.UserActionEntity;
 import ru.persea.userservice.entity.UserActionTypeEntity;
 import ru.persea.userservice.entity.UserAllergenEntity;
@@ -39,16 +42,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void addViewedProduct(UUID userId, Long productId) {
-        saveAction(userId, productId, "view");
+        var action = UserActionEvent.builder()
+                        .userId(userId)
+                        .productId(productId)
+                        .type("view")
+                        .build();
+        saveAction(action);
     }
 
     @Override
+    @Transactional
     public void addFavoriteProduct(UUID userId, Long productId) {
-        saveAction(userId, productId, "like");
+        var action = UserActionEvent.builder()
+                        .userId(userId)
+                        .productId(productId)
+                        .type("like")
+                        .build();
+        saveAction(action);
     }
 
     @Override
+    @Transactional
     public void deleteFavoriteProduct(UUID userId, Long productId) {
         actionsRepo.deleteByUserIdAndProductId(userId, productId, "like");
     }
@@ -61,12 +77,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void addAllergen(UUID userId, Long factorId) {
         UserAllergenEntity allergenEntity = new UserAllergenEntity(null, userId, factorId);
         allergensRepo.save(allergenEntity);
     }
 
     @Override
+    @Transactional
     public void deleteAllergen(UUID userId, Long factorId) {
         allergensRepo.deleteByKeycloakIdAndFactorId(userId, factorId);
     }
@@ -77,9 +95,15 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
-    private void saveAction(UUID userId, Long productId, String action) {
-        UserActionTypeEntity actionTypeEntity = actionTypesRepo.findByName(action).orElseThrow();
-        UserActionEntity actionEntity = new UserActionEntity(null, userId, productId, actionTypeEntity, null);
-        actionsRepo.save(actionEntity);
+    @Transactional
+    public UserActionEntity saveAction(UserActionEvent action) {
+        var actionTypeEntity = actionTypesRepo.findByName(action.type()).orElseThrow();
+        var actionEntity = new UserActionEntity().builder()
+                                .userId(action.userId())
+                                .productId(action.productId())
+                                .type(actionTypeEntity)
+                                .createdAt(action.createdAt() == null ? Instant.now() : action.createdAt())
+                                .build();
+        return actionsRepo.save(actionEntity);
     }
 }

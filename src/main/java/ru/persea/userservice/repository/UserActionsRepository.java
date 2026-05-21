@@ -16,7 +16,7 @@ public interface UserActionsRepository extends JpaRepository<UserActionEntity, L
         select ua 
         from UserActionEntity ua 
         join ua.type t 
-        where ua.keycloakId = :userId and t.name = :typeName
+        where ua.userId = :userId and t.name = :typeName
         order by ua.createdAt desc
     """)
     public List<UserActionEntity> findByUserId(
@@ -27,7 +27,7 @@ public interface UserActionsRepository extends JpaRepository<UserActionEntity, L
     @Query("""
         delete
         from UserActionEntity ua 
-        where ua.keycloakId = :userId 
+        where ua.userId = :userId 
             and ua.productId = :productId 
             and ua.type.name = :typeName
     """)

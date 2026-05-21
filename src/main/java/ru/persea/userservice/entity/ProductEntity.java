@@ -31,5 +31,5 @@ public class ProductEntity {
 
     @JsonProperty("image_uri")
     @Column(name = "image_uri")
-    private String imageUri;
+    private String imageURI;
 }

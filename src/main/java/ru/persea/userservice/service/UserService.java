@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import ru.persea.userservice.dto.FactorDto;
 import ru.persea.userservice.dto.ProductDto;
+import ru.persea.userservice.dto.UserActionEvent;
+import ru.persea.userservice.entity.UserActionEntity;
 
 public interface UserService {
     public List<ProductDto> getViewedProducts(UUID userId);
@@ -22,4 +24,6 @@ public interface UserService {
     public void addAllergen(UUID userId, Long factorId);
 
     public void deleteAllergen(UUID userId, Long productId);
+
+    public UserActionEntity saveAction(UserActionEvent action);
 }

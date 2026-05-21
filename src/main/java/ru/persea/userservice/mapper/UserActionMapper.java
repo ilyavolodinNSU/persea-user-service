@@ -9,4 +9,5 @@ import ru.persea.userservice.entity.UserActionEntity;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserActionMapper {
     public ProductDto toViewedProductDto(UserActionEntity entity);
+    
 }
