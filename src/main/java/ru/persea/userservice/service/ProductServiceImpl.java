@@ -2,28 +2,61 @@ package ru.persea.userservice.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import lombok.RequiredArgsConstructor;
-import ru.persea.userservice.dto.ProductDto;
+import ru.persea.userservice.dto.BrandDto;
+import ru.persea.userservice.dto.CategoryDto;
 import ru.persea.userservice.dto.ProductSyncDto;
-import ru.persea.userservice.mapper.ProductMapper;
-import ru.persea.userservice.repository.ProductsRepository;
+import ru.persea.userservice.repository.JdbcBrandRepository;
+import ru.persea.userservice.repository.JdbcCategoryRepository;
+import ru.persea.userservice.repository.JdbcProductRepository;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final ProductsRepository productsRepository;
-    private final ProductMapper productMapper;
+    private final JdbcProductRepository jdbcProductRepository;
+    private final JdbcBrandRepository jdbcBrandRepository;
+    private final JdbcCategoryRepository jdbcCategoryRepository;
 
     @Override
     @Transactional
     public void syncProduct(ProductSyncDto product) {
-        productsRepository.save(productMapper.toEntity(product));
+        jdbcProductRepository.upsert(
+            product.id(),
+            product.name(),
+            product.brandId(),
+            product.categoryId(),
+            product.rating(),
+            product.imageURI()
+        );
     }
 
     @Override
     @Transactional
     public void deleteProduct(Long productId) {
-        productsRepository.deleteById(productId);
+        jdbcProductRepository.deleteById(productId);
+    }
+
+    @Override
+    @Transactional
+    public void syncBrand(BrandDto brand) {
+        jdbcBrandRepository.upsert(brand.id(), brand.name());
+    }
+
+    @Override
+    @Transactional
+    public void deleteBrand(Long brandId) {
+        jdbcBrandRepository.deleteById(brandId);
+    }
+
+    @Override
+    @Transactional
+    public void syncCategory(CategoryDto category) {
+        jdbcCategoryRepository.upsert(category.id(), category.name(), category.code());
+    }
+
+    @Override
+    @Transactional
+    public void deleteCategory(Long categoryId) {
+        jdbcCategoryRepository.deleteById(categoryId);
     }
 }

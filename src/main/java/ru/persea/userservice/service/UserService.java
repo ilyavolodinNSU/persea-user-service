@@ -13,17 +13,11 @@ public interface UserService {
 
     public List<ProductDto> getFavoriteProducts(UUID userId); 
 
-    public void addViewedProduct(UUID userId, Long productId);
-
     public void addFavoriteProduct(UUID userId, Long productId);
 
     public void deleteFavoriteProduct(UUID userId, Long productId);
 
-    public List<FactorDto> getAllergens(UUID userId);
-
-    public void addAllergen(UUID userId, Long factorId);
-
-    public void deleteAllergen(UUID userId, Long productId);
-
     public UserActionEntity saveAction(UserActionEvent action);
+
+    public void syncAction(UserActionEvent action);
 }

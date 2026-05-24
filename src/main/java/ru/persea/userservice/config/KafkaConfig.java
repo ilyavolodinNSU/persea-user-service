@@ -14,9 +14,6 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
 
-import ru.persea.userservice.dto.ProductCdcMessage;
-import ru.persea.userservice.dto.ProductSyncDto;
-import ru.persea.userservice.dto.UserActionEvent;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 

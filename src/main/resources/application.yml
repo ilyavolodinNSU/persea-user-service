@@ -20,10 +20,14 @@ spring:
 kafka:
   topics:
     product-cdc: data.cdc.public.products
+    product-categories-cdc: data.cdc.public.categories
+    product-brands-cdc:     data.cdc.public.brands
     product-outbox: data.cdc.product.outbox
   consumer-groups:
-    product-sync: product-service.cdc.sync
-    product-viewed: product-service.outbox.product-viewed
+    product-sync: user-service.cdc.sync
+    product-categories-sync: user-service-product-categories.cdc.sync
+    product-brands-sync:     user-service-product-brands.cdc.sync
+    product-viewed: user-service.outbox.product-viewed
 
 server:
   port: 8090

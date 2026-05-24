@@ -1,8 +1,5 @@
 package ru.persea.userservice.entity;
 
-import java.util.UUID;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,19 +11,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "user_allergens")
+@Table(name = "categories")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAllergenEntity {
+public class CategoryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "keycloak_id", nullable = false)
-    private UUID keycloakId;
+    private String name;
 
-    @Column(name = "factor_id", nullable = false)
-    private Long factorId;
+    private String code;
 }

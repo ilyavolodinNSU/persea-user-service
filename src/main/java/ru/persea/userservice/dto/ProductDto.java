@@ -1,11 +1,10 @@
 package ru.persea.userservice.dto;
 
-import java.time.Instant;
-
 public record ProductDto(
     Long id,
-    String name,
+    String name, 
+    BrandDto brand,
+    CategoryDto category,
     Integer rating,
-    String imageURI,
-    Instant createdAt
+    String imageURI
 ) {}
