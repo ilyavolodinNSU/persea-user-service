@@ -42,10 +42,14 @@ public class KafkaConfig {
         );
     }
 
+    @Value("${spring.kafka.lestener.auto-startup:true}")
+    private boolean kafkaAutoStartup;
+
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, JsonNode> jsonNodeKafkaListenerContainerFactory() {
         var factory = new ConcurrentKafkaListenerContainerFactory<String, JsonNode>();
         factory.setConsumerFactory(jsonNodeConsumerFactory());
+        factory.setAutoStartup(kafkaAutoStartup);
         return factory;
     }
 }
