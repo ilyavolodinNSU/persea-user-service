@@ -20,4 +20,6 @@ public interface UserService {
     public UserActionEntity saveAction(UserActionEvent action);
 
     public void syncAction(UserActionEvent action);
+
+    public List<ProductDto> getScannedProducts(UUID userId);
 }

@@ -30,4 +30,4 @@ kafka:
     product-viewed: user-service.outbox.product-viewed
 
 server:
-  port: 8090
+  port: 8085

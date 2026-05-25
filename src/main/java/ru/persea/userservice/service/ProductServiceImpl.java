@@ -9,6 +9,7 @@ import ru.persea.userservice.dto.ProductSyncDto;
 import ru.persea.userservice.repository.JdbcBrandRepository;
 import ru.persea.userservice.repository.JdbcCategoryRepository;
 import ru.persea.userservice.repository.JdbcProductRepository;
+import ru.persea.userservice.repository.UserActionsRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ public class ProductServiceImpl implements ProductService {
     private final JdbcProductRepository jdbcProductRepository;
     private final JdbcBrandRepository jdbcBrandRepository;
     private final JdbcCategoryRepository jdbcCategoryRepository;
+    private final UserActionsRepository userActionsRepository;
 
     @Override
     @Transactional

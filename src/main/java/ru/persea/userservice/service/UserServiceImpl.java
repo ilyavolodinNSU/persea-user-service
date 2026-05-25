@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<ProductDto> getScannedProducts(UUID userId) {
+        return getProductByActionTypeAndUserId(userId, "scan");
+    }
+
+    @Override
     public List<ProductDto> getFavoriteProducts(UUID userId) {
         return getProductByActionTypeAndUserId(userId, "like");
     }

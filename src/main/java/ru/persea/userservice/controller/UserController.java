@@ -24,6 +24,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/me/scanned-products")
+    public ResponseEntity<List<ProductDto>> getScannedProducts(JwtAuthenticationToken jwt) {
+        return ResponseEntity.ok(userService.getScannedProducts(UUID.fromString(jwt.getToken().getSubject())));
+    }
+
     @GetMapping("/me/viewed-products")
     public ResponseEntity<List<ProductDto>> getViewedProducts(JwtAuthenticationToken jwt) {
         return ResponseEntity.ok(userService.getViewedProducts(UUID.fromString(jwt.getToken().getSubject())));

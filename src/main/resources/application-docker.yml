@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-user:5432/user_service
+    username: postgres
+    password: postgres
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth-service:8080/realms/persea
+  kafka:
+    bootstrap-servers: kafka:9092
+
+kafka:
+  topics:
+    product-cdc: data.cdc.public.products
+    product-categories-cdc: data.cdc.public.categories
+    product-brands-cdc: data.cdc.public.brands
+    product-outbox: data.cdc.product.outbox
+  consumer-groups:
+    product-sync: user-service.cdc.sync
+    product-categories-sync: user-service-product-categories.cdc.sync
+    product-brands-sync: user-service-product-brands.cdc.sync
+    product-viewed: user-service.outbox.product-viewed

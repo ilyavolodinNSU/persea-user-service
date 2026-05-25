@@ -27,4 +27,6 @@ public interface UserActionsRepository extends JpaRepository<UserActionEntity, L
         @Param("productId") Long productId,
         @Param("typeName") String typeName
     );
+
+    void deleteAllByProductId(Long productId);
 }

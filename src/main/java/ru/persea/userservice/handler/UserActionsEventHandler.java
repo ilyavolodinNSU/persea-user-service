@@ -1,6 +1,7 @@
 package ru.persea.userservice.handler;
 
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import ru.persea.userservice.dto.UserActionEvent;
@@ -20,7 +21,9 @@ public class UserActionsEventHandler {
         groupId = "${kafka.consumer-groups.product-viewed}",
         containerFactory = "jsonNodeKafkaListenerContainerFactory"
     )
-    public void consumeProductViewed(JsonNode message) {
+    public void consumeProductViewed(@Payload(required = false) JsonNode message) {
+        if (message == null || message.isNull() || message.isEmpty()) return;
+        
         try {
             String payloadStr = message.get("payload").asString();
             var event = objectMapper.readValue(payloadStr, UserActionEvent.class);
